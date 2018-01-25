@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_git"
+        android:id="@+id/imageView"
+        />
+    <TextView
+        android:id="@+id/text_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp"
+        android:layout_toEndOf="@+id/imageView"
+        android:layout_toRightOf="@+id/imageView"
+        android:text="@string/text_id"
+        />
+    <TextView
+        android:id="@+id/text_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/text_id"
+        android:layout_alignStart="@+id/text_id"
+        android:layout_below="@+id/text_id"
+        android:text="@string/text_name"
+        />
+    <TextView
+        android:id="@+id/text_descrip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/text_name"
+        android:layout_marginLeft="74dp"
+        android:layout_marginStart="74dp"
+        android:layout_toEndOf="@+id/text_name"
+        android:layout_toRightOf="@+id/text_name"
+        android:text="@string/text_description"
+        />
+
+</RelativeLayout>

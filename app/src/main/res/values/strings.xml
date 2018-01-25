@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">HttpUrlConnectionDemo</string>
+
+    <string name="text_name">User Name</string>
+    <string name="text_id">47516545</string>
+    <string name="text_description">This is a</string>
+</resources>
