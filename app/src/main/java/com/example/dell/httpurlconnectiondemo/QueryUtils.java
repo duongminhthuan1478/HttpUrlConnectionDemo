@@ -23,6 +23,7 @@ import static com.example.dell.httpurlconnectiondemo.MainActivity.LOG_TAG;
 
 public class QueryUtils {
 
+
     public static ArrayList<UserGitHub> fetchUserGitHub(String requestUrl) {
 
         URL url = createURL(requestUrl);
@@ -50,7 +51,7 @@ public class QueryUtils {
             return null;
         }
 
-        // Create an empty ArrayList that we can start adding earthquakes to
+        // Create an empty ArrayList that we can start adding user GitHub to
         ArrayList<UserGitHub> listUser = new ArrayList<>();
 
         // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
@@ -60,18 +61,16 @@ public class QueryUtils {
             //JSon root
             JSONArray jsonArray = new JSONArray(gitHubJSON);
 
-            for (int i = 0; i < jsonArray.length(); i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject currentUser = jsonArray.getJSONObject(i);
 
                 int id = currentUser.getInt("id");
                 String name = currentUser.getString("name");
                 String description = currentUser.getString("description");
 
-
                 UserGitHub userGitHub = new UserGitHub(id, name, description);
                 listUser.add(userGitHub);
             }
-
         } catch (JSONException e) {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
@@ -82,13 +81,12 @@ public class QueryUtils {
         return listUser;
     }
 
-
-    private static URL createURL(String stringUrl){
+    private static URL createURL(String stringUrl) {
         URL url = null;
         try {
             url = new URL(stringUrl);
         } catch (MalformedURLException e) {
-            Log.e(LOG_TAG,"Problem building the URL ", e);
+            Log.e(LOG_TAG, "Problem building the URL ", e);
         }
         return url;
     }
@@ -100,7 +98,7 @@ public class QueryUtils {
         String jsonResponse = "";
 
         // If the URL is null, then return early.
-        if(url == null) {
+        if (url == null) {
             return jsonResponse;
         }
         HttpURLConnection urlConnection = null;
@@ -118,24 +116,23 @@ public class QueryUtils {
             if (urlConnection.getResponseCode() == 200) {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
-            }
-            else {
+            } else {
                 Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
             }
-        } catch (IOException e){
+        } catch (IOException e) {
             Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
-        }  finally {
-        if (urlConnection != null) {
+        } finally {
+            if (urlConnection != null) {
 
-            urlConnection.disconnect();
+                urlConnection.disconnect();
+            }
+            if (inputStream != null) {
+                // Closing the input stream could throw an IOException, which is why
+                // the makeHttpRequest(URL url) method signature specifies than an IOException
+                // could be thrown.
+                inputStream.close();
+            }
         }
-        if (inputStream != null) {
-            // Closing the input stream could throw an IOException, which is why
-            // the makeHttpRequest(URL url) method signature specifies than an IOException
-            // could be thrown.
-            inputStream.close();
-        }
-    }
         return jsonResponse;
     }
 
@@ -145,12 +142,13 @@ public class QueryUtils {
      */
     private static String readFromStream(InputStream inputStream) throws IOException {
         StringBuilder output = new StringBuilder();
-        if(inputStream != null){
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
+        if (inputStream != null) {
+            InputStreamReader inputStreamReader =
+                    new InputStreamReader(inputStream, Charset.forName("UTF-8"));
             BufferedReader reader = new BufferedReader(inputStreamReader);
 
             String line = reader.readLine();
-            while(line != null){
+            while (line != null) {
                 output.append(line);
                 line = reader.readLine();
             }

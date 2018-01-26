@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by Dell on 24-Jan-18.
  */
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
+public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private ArrayList<UserGitHub> mListUser = new ArrayList<>();
     private Context mContext;
@@ -22,10 +22,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         mListUser = arrUser;
     }
 
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.user_list_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -39,6 +39,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         return mListUser.size();
     }
 
+    public void updateData(ArrayList<UserGitHub> usersList) {
+        // Clear the list of previous user GitHub data, then add them to the
+        mListUser.clear();
+        mListUser.addAll(usersList);
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView mTextViewId, mTextViewUserName, mTextViewDescription;
 
@@ -48,9 +55,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
             mTextViewUserName = itemView.findViewById(R.id.text_name);
             mTextViewDescription = itemView.findViewById(R.id.text_descrip);
         }
-        public void setData(int position){
+
+        public void setData(int position) {
             UserGitHub user = mListUser.get(position);
-            mTextViewId.setText(user.getID());
+            mTextViewId.setText(String.valueOf(user.getID()));
             mTextViewUserName.setText(user.getName());
             mTextViewDescription.setText(user.getDescription());
         }
